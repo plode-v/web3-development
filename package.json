@@ -3,21 +3,17 @@
   "version": "1.0.0",
   "description": "This is part of the web3 development online course projects.\r It is a simple contract and functions, the rule is basically people enters amount of ETH to the pool and the contract will choose one winner and send all ETH in the pool to the winner.",
   "main": "index.js",
-  "directories": {
-    "test": "mocha"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.5.1",
-    "dotenv": "^16.0.3",
     "ganache-cli": "^6.12.2",
     "mocha": "^9.1.2",
-    "solc": "0.4.17",
+    "solc": "^0.4.26",
     "web3": "^1.6.0"
   }
 }
