@@ -17,7 +17,7 @@ contract Lottery {
     }
 
     function enter() public payable {
-        require(msg.value >= 0.1 ether, "Sorry, must send 0.1 ETH or more.");
+        require(msg.value >= 0.001 ether, "Sorry, must send 0.001 ETH or more.");
         players.push(payable(msg.sender));
     }
 
