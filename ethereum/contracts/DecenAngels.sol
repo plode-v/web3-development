@@ -42,6 +42,12 @@ contract DecenAngels {
         minimumContribution = _minimumContribution;
     }
 
+    function contribute() public payable {
+        require(msg.value >= minimumContribution, "Sorry, please put more");
+        approvers[msg.sender] = true;
+        approversCount++;
+    }
+
     function createRequest(string memory _description, uint _value, address payable _recipient) public managerOnly {
         require(approvers[msg.sender]);
         Request storage r = requests[numRequests++];
