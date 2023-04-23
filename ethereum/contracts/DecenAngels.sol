@@ -7,7 +7,7 @@ contract ContractFactory {
 
     function deployCampaign(uint _minimumContribution) public {
         address newCampaign = address(new DecenAngels(_minimumContribution, msg.sender));
-        deployedCampaigns.push(newCampaign);
+        deployedCampaigns.push(payable(newCampaign));
     }
 
     function getDeployedCampaigns() public view returns (address[] memory) {
@@ -25,8 +25,7 @@ contract DecenAngels {
         mapping(address => bool) approvals;
     }
 
-    uint numRequests;
-    mapping(uint => Request) public requests;
+    Request[] public requests;
     address public manager;
     uint public minimumContribution;
     mapping(address => bool) public approvers;
@@ -49,8 +48,7 @@ contract DecenAngels {
     }
 
     function createRequest(string memory _description, uint _value, address payable _recipient) public managerOnly {
-        require(approvers[msg.sender]);
-        Request storage r = requests[numRequests++];
+        Request storage r = requests.push();
         r.description = _description;
         r.value = _value;
         r.recipient = _recipient;
