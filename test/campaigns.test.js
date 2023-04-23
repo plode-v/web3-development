@@ -94,5 +94,19 @@ describe("Campaigns", () => {
         balance = parseFloat(balance);
         assert(balance > 104);
     });
+
+    it("lets only the manager to create requests", async () => {
+        try {
+            await campaign.methods
+                .createRequest("A", web3.utils.toWei("1", "ether"), accounts[1])
+                .send({ 
+                    from: accounts[2], 
+                    gas: "10000000"
+                });
+            assert(false);
+        } catch (err) {
+            assert(err);
+        }
+    });
 });
 
