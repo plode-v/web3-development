@@ -21,7 +21,7 @@ beforeEach(async () => {
             gas: "10000000"
         })
 
-    await factory.methods.deployCampaign("1000").send({
+    await factory.methods.deployCampaign("100").send({
         from: accounts[0],
         gas: "10000000"
     });
@@ -42,12 +42,24 @@ describe("Campaigns", () => {
     });
 
     it("allows people to contribute and marks them as approvers", async () => {
-        await campaign.methods.constructor().send({
+        await campaign.methods.contribute().send({
             from: accounts[1],
             value: "100"
         });
         const isContributor = await campaign.methods.approvers(accounts[1]).call();
-        assert.equal(isContributor);
+        assert(isContributor);
     })
+
+    it("requires a minimum amount", async () => {
+        try {
+            await campaign.methods.contribute().send({
+                from: accounts[1],
+                value: 0
+            });
+            assert(false);
+        } catch(err) {
+            assert(err)
+        }
+    });
 });
 
